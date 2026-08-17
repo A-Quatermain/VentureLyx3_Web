@@ -1,0 +1,38 @@
+{
+  "summary": "First full backend + frontend test of Venturelyx MVP. Ran 27 pytest cases covering auth, onboarding, command center + growth score + AI next-best-action, operate leads/jobs/invoices, Stripe checkout (checkout_url returned), SEO scan + SSRF safeguard + keywords/competitors CRUD + audits, reviews list/add/respond/requests, AI streaming endpoints (seo/recommend, reviews/respond), settings update, and tenant scoping. All 27 backend tests pass (100%). Frontend Playwright flows verified: landing, register->onboarding->command, seeded owner login, sidebar navigation, lead create, invoice create + Pay button triggers Stripe checkout, SEO scan of example.com returns score 82, private URL http://127.0.0.1 rejected with clear error toast, AI 'Fix this for me' opens streaming dialog and streams a full recommendation (~2.3k chars), /app/build shows Coming Soon, settings save works, new tenant workspace shows 0 leads (tenant isolation confirmed).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "AI stream dialog (ScaleSEO Fix / Reviews Draft reply)", "issue": "Streamed AI output appears to duplicate early tokens (e.g. rendered as 'GreatGreat news \u2014 news \u2014 this is one of the easiest fixes'). Looks like streamPost() is appending overlapping chunks or React state closure issue in lib/api.js streamPost consumer. The full text at end is coherent but the first ~30 chars are visibly duplicated.", "selector": "[data-testid=\"ai-output\"]", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Investigate AI streaming duplicate-token rendering in /app/frontend/src/lib/api.js streamPost() (or its consumers in ScaleSEO.jsx / Reviews.jsx). Likely appending each SSE chunk to previous full accumulation instead of just delta, or race between setState calls."
+  ],
+  "critical_code_review_comments": [
+    "routes_operate.update_job uses full JobInput (not partial) so any PUT without every field will overwrite with defaults (e.g. omitting value resets it to 0). Consider a JobUpdate model like LeadUpdate.",
+    "routes_payments checkout hard-codes success/cancel URLs off origin_url from client; consider validating origin_url against an allow-list to avoid open-redirect abuse.",
+    "auth.set_auth_cookie sets samesite='none' + secure=True; fine for cross-site preview domain but confirm production domain also served over HTTPS.",
+    "routes_seo.is_safe_url does DNS resolution but does not re-check IP after redirect; httpx follow_redirects=True could still fetch from a redirect that lands on a private IP. Consider disabling redirects or re-validating each hop's target."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py",
+    "/app/backend/tests/__init__.py"
+  ],
+  "success_rate": {"backend": "100%", "frontend": "95%"},
+  "seed_data_creation": "Created transient TEST_* users (qa_ui_*, qa_ob_*, TEST_flow_*, TEST_qa_*) and TEST_UI_Biz/TEST_UI_Biz2 tenants via API + UI. Test-created leads/jobs/invoices/reviews prefixed TEST_ and cleaned up in tests where possible; a few transient TEST_ business/tenant records remain in Mongo but are inert.",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "Seeded owner usasaranga@gmail.com / Venturelyx@2026 works. New user register+login+logout+re-login verified.",
+  "context_for_next_testing_agent": "All 27 backend tests pass; run with `pytest /app/backend/tests/backend_test.py -v`. Frontend industry field on onboarding is a Radix Select (not a plain input) — must click then click role=option. Invoice Pay button navigates in same tab (not new tab) — Stripe URL is returned by /api/payments/checkout (backend test confirms). AI stream duplicate-token bug in ai-output display is the only outstanding issue; the underlying /api/ai/* endpoints stream correctly (verified via backend tests).",
+  "rca_of_the_issue": "Duplicate-token rendering in AI stream dialog is most likely a bug in the SSE/text-stream consumer (streamPost in /app/frontend/src/lib/api.js). Either (a) the consumer is calling onChunk(full_text_so_far) but the component is appending it via setText(prev => prev + chunk), or (b) React 18 StrictMode double-invokes the reader in dev. Reproduction: login as owner, open ScaleSEO, scan example.com, click 'Fix this for me' on any failed check; dialog opens and the first several tokens appear doubled (e.g. 'GreatGreat news \u2014 news \u2014'). Full output at the end is still readable."
+}

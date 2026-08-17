@@ -1,0 +1,123 @@
+{
+  "theme_strategy": "ARCHETYPE 4: SWISS & HIGH-CONTRAST + ARCHETYPE 5: LUXURY (Dark Mode Command Center)",
+  "design_philosophy": "Venturelyx is an Operating System, not a generic SaaS. The Command Center must feel like a high-end Bloomberg Terminal crossed with Apple's precision. It uses a deeply engineered Dark Mode with vibrant, highly accessible data accents. The interface is stark, dense, and action-oriented. We do not use 'toy' colors or soft pastels here.",
+  "typography": {
+    "headings": {
+      "font": "Manrope",
+      "weights": ["400", "700", "800"],
+      "usage": "H1-H4. Must use tight letter spacing (tracking-tight) to feel engineered and precise. No generic sans."
+    },
+    "body": {
+      "font": "IBM Plex Sans",
+      "weights": ["400", "500", "600"],
+      "usage": "Data tables, paragraphs, and UI labels. Extremely legible at small sizes."
+    },
+    "mono": {
+      "font": "JetBrains Mono",
+      "weights": ["400"],
+      "usage": "Numerical data, metric cards, Growth Score, and AI streaming text outputs."
+    },
+    "scale": {
+      "h1": "text-4xl md:text-5xl tracking-tighter font-extrabold",
+      "h2": "text-2xl md:text-3xl tracking-tight font-bold",
+      "h3": "text-xl font-bold tracking-tight",
+      "body": "text-sm md:text-base leading-relaxed",
+      "labels": "text-xs font-semibold tracking-[0.15em] uppercase text-slate-400"
+    }
+  },
+  "colors": {
+    "mode": "dark",
+    "backgrounds": {
+      "app": "#050505",
+      "sidebar": "#0A0A0A",
+      "card": "#121212",
+      "card_hover": "#171717",
+      "ai_surface": "#0C101F"
+    },
+    "borders": {
+      "default": "#262626",
+      "focus": "#4F46E5",
+      "ai_glow": "rgba(79, 70, 229, 0.3)"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A3A3A3",
+      "muted": "#737373",
+      "inverse": "#050505"
+    },
+    "brand_and_actions": {
+      "primary_action": "#4F46E5",
+      "primary_hover": "#4338CA",
+      "ai_accent": "#8B5CF6",
+      "success_growth": "#10B981",
+      "warning_issue": "#F59E0B",
+      "danger": "#EF4444"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "High Density Grid. Every pixel matters. Modified F-Pattern for Command Center.",
+    "sidebar": "w-64 or w-72 flex-shrink-0 border-r border-[#262626] h-screen sticky top-0",
+    "main_content": "p-6 md:p-8 space-y-8 max-w-[1600px] mx-auto",
+    "command_center_grid": {
+      "container": "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6",
+      "growth_score": "col-span-1 md:col-span-2 row-span-2 (North Star metric, highly visual)",
+      "metric_cards": "col-span-1 row-span-1",
+      "ai_action_list": "col-span-1 md:col-span-2 lg:col-span-3 row-span-2 (Tasks/To-Do widget)",
+      "pipeline_board": "flex overflow-x-auto gap-4 h-[70vh] pb-4"
+    },
+    "card_padding": "p-5 md:p-6"
+  },
+  "surface_strategies": {
+    "standard_cards": "Flat solid background (#121212), 1px border (#262626), rounded-lg. No box-shadows. On hover: border-slate-700 -translate-y-[1px] transition-all duration-200.",
+    "ai_streaming_panels": "Glassmorphism with a technical edge. bg-[#0C101F]/80 backdrop-blur-xl border border-indigo-500/20. Inner glow shadow.",
+    "fix_this_for_me_btn": "The 'Tracing Beam' effect or a high-contrast Indigo pill button with an animating left-to-right subtle sheen.",
+    "locked_modules": "Opacity-50, grayscale filter, with a minimal 'Lock' icon and 'Coming V2' mono-spaced tag. Non-clickable or opens a 'Coming Soon' tooltip."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-indigo-600 text-white rounded-md px-4 py-2 font-medium hover:bg-indigo-700 transition-colors focus:ring-2 focus:ring-indigo-500/50",
+      "secondary": "bg-[#171717] text-white border border-[#333] rounded-md px-4 py-2 hover:border-[#555] transition-colors",
+      "ai_action": "bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-md px-4 py-2 font-bold shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] transition-all"
+    },
+    "metric_cards": "Include a top label, a massive mono-spaced numerical value, and a small +/- percentage indicator in Emerald/Danger. Replace empty charts with 'Action needed' CTA.",
+    "pipeline_board": {
+      "column": "bg-[#0A0A0A] rounded-lg border border-[#262626] flex flex-col min-w-[300px] h-full",
+      "card": "bg-[#171717] border border-[#333] p-4 rounded-md cursor-grab active:cursor-grabbing hover:border-slate-500 transition-colors"
+    },
+    "inputs": "bg-[#0A0A0A] border border-[#333] rounded-md focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white px-3 py-2"
+  },
+  "motion_and_interactions": {
+    "page_transition": "Fade in with a slight Y-axis upward drift (10px).",
+    "ai_streaming": "Staggered typewriter effect for text chunks, or opacity fade-in per paragraph. Ensure cursor blinks at the end of streaming text.",
+    "hover_states": "All interactive elements must change background or border explicitly. Do not rely on opacity changes.",
+    "loading": "No spinning circles. Use skeleton pulses matching the card background (#171717) or technical ascii-style loaders."
+  },
+  "iconography_and_assets": {
+    "library": "phosphor-icons/react (Duotone or Regular weight for a polished, readable dashboard feel).",
+    "install_command": "yarn add @phosphor-icons/react",
+    "avatars": {
+      "user_1": "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHx8MTc4Njg2MTI1Mnww&ixlib=rb-4.1.0&q=85",
+      "user_2": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHx8MTc4Njg2MTI1Mnww&ixlib=rb-4.1.0&q=85",
+      "user_3": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHx8MTc4Njg2MTI1Mnww&ixlib=rb-4.1.0&q=85",
+      "user_4": "https://images.unsplash.com/photo-1676989880361-091e12efc056?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHx8MTc4Njg2MTI1Mnww&ixlib=rb-4.1.0&q=85"
+    }
+  },
+  "data_visualizations": {
+    "library": "recharts",
+    "rules": "Charts MUST not have default grid lines. Hide grid lines entirely or use stroke='#262626' strokeDasharray='3 3'. Chart tooltip MUST have a dark bg (#121212) with a 1px border. Do not use generic tooltips."
+  },
+  "accessibility_and_testing": {
+    "contrast": "Ensure all text meets at least 4.5:1 ratio. Muted text (#737373) is only for non-essential labels. Use #A3A3A3 for readable secondary text.",
+    "testing_attributes": "All interactive elements (sidebar links, fix-this-buttons, drag cards, AI approval panels) MUST have a `data-testid` attribute (e.g., `data-testid='fix-seo-button'`)."
+  },
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends.",
+    "Never use `transition: all`. Target specific properties like `transition-colors`, `transition-transform`.",
+    "DO NOT use a fully transparent background on headers or dropdowns. Ensure solid or blurred surfaces are used.",
+    "DO NOT center text in the app container universally (`.App { text-align: center; }`). Keep dashboards strictly left-aligned.",
+    "Never use AI assistant Emoji characters (🤖🧠💭) for icons. Use Phosphor icons.",
+    "Implement Sonner (`/app/src/components/ui/sonner.js` or `.tsx` if available) for toast notifications, configured to a dark theme.",
+    "Prioritize HTML semantics. Use proper headings (h1, h2, h3) and sections.",
+    "Build the dashboard explicitly utilizing the provided dark mode color palette. Do NOT default to light mode shadcn if not specified."
+  ]
+}
